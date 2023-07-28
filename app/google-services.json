@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "727621837358",
+    "firebase_url": "https://speedcamalert-3461b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "speedcamalert-3461b",
+    "storage_bucket": "speedcamalert-3461b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727621837358:android:c8577cd6ca56cdac46f5bf",
+        "android_client_info": {
+          "package_name": "com.example.speedcamalert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727621837358-brgs4hu14bl78mcvf6r3h4b7khn35j44.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqCMLLngugM56RW-Ake4BD4dE58CrMEqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727621837358-brgs4hu14bl78mcvf6r3h4b7khn35j44.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

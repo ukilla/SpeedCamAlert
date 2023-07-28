@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">SpeedCamAlert</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="registerText">Registracija</string>
+    <string name="nameHint">Ime</string>
+    <string name="lastNameHint">Prezime</string>
+    <string name="usernameHint">Korisnicko ime</string>
+    <string name="passwordHint">Sifra</string>
+    <string name="password2Hint">Potvrdite sifru</string>
+    <string name="phoneHint">Broj telefona</string>
+    <string name="add_image">Dodaj sliku</string>
+    <string name="register">Registruj se</string>
+    <string name="login">Uloguj se</string>
+    <string name="registerNow">Nemate nalog? Registrujte se!</string>
+    <string name="MAPS_API_KEY">AIzaSyB2yj5ekcVhR8BrVxqOjAmjUTBuE-xDE3Y</string>
+    <string name="dodavanjeTekst">Dodaj patrolu</string>
+    <string name="strayNameHint">Ime patrole</string>
+    <string name="strayDescHint">Opis patrole</string>
+    <string name="dodaj">Dodaj</string>
+    <string name="addComment">Opis komentara...</string>
+    <string name="addCommentButton">Dodaj komentar</string>
+</resources>
