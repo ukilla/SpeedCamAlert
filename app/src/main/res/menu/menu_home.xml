@@ -26,6 +26,13 @@
         android:icon="@drawable/scoreboard_icon"
         />
     <item
+        android:id="@+id/action_list"
+        android:orderInCategory="100"
+        android:title="Show List"
+        app:showAsAction="always"
+        android:icon="@drawable/list_icon"
+        />
+    <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"
         android:title="Log out"

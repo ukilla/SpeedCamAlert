@@ -190,12 +190,12 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
                 this.findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
                 true
             }
+            R.id.action_list->{
+                this.findNavController().navigate(R.id.action_homeFragment_to_patrolListFragment)
+                true
+            }
 //            R.id.action_show_scoreboard->{
 //                this.findNavController().navigate(R.id.action_homeFragment_to_leaderboardFragment)
-//                true
-//            }
-//            R.id.action_list->{
-//                this.findNavController().navigate(R.id.action_homeFragment_to_strayListFragment)
 //                true
 //            }
             else->super.onContextItemSelected(item)
