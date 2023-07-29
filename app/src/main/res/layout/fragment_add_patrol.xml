@@ -60,13 +60,13 @@
 
 
                 <RadioButton
-                    android:id="@+id/radioButtonCam"
+                    android:id="@+id/radioButtonPatrol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Patrola" />
 
                 <RadioButton
-                    android:id="@+id/radioButtonPatrol"
+                    android:id="@+id/radioButtonCam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Radar" />

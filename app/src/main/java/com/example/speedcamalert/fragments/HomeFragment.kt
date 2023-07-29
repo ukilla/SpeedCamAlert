@@ -186,6 +186,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
                 this.findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
                 true
             }
+            R.id.action_show_profile-> {
+                this.findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+                true
+            }
 //            R.id.action_show_scoreboard->{
 //                this.findNavController().navigate(R.id.action_homeFragment_to_leaderboardFragment)
 //                true
