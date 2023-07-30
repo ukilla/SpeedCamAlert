@@ -23,14 +23,14 @@ import com.example.speedcamalert.viewmodels.LoggedUserViewModel
 import com.example.speedcamalert.viewmodels.PatrolViewModel
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 
 class PatrolInfoFragment : DialogFragment() {
     private var _binding: FragmentPatrolInfoBinding?=null
     private val binding get() = _binding!!
-    private var userRating : Int=0
-
+    private var isActive:Boolean=true
     private val loggedUserViewModel: LoggedUserViewModel by activityViewModels()
     private  val patrolViewModel: PatrolViewModel by activityViewModels()
 
@@ -64,76 +64,26 @@ class PatrolInfoFragment : DialogFragment() {
         return binding.root
     }
 
-    fun onStarClick(view: View) {
-        val clickedStar = view as ImageView
-        val star1 = binding.star1
-        val star2 = binding.star2
-        val star3 = binding.star3
-        val star4 = binding.star4
-        val star5 = binding.star5
 
-        star1.setImageResource(R.drawable.star_rate_icon)
-        star2.setImageResource(R.drawable.star_rate_icon)
-        star3.setImageResource(R.drawable.star_rate_icon)
-        star4.setImageResource(R.drawable.star_rate_icon)
-        star5.setImageResource(R.drawable.star_rate_icon)
-
-        when (clickedStar.id) {
-            R.id.star5 -> {
-                userRating = 5
-                star5.setImageResource(R.drawable.star_rate_fill_icon)
-                star4.setImageResource(R.drawable.star_rate_fill_icon)
-                star3.setImageResource(R.drawable.star_rate_fill_icon)
-                star2.setImageResource(R.drawable.star_rate_fill_icon)
-                star1.setImageResource(R.drawable.star_rate_fill_icon)
-            }
-            R.id.star4 -> {
-                userRating = 4
-                star4.setImageResource(R.drawable.star_rate_fill_icon)
-                star3.setImageResource(R.drawable.star_rate_fill_icon)
-                star2.setImageResource(R.drawable.star_rate_fill_icon)
-                star1.setImageResource(R.drawable.star_rate_fill_icon)
-            }
-            R.id.star3 -> {
-                userRating = 3
-                star3.setImageResource(R.drawable.star_rate_fill_icon)
-                star2.setImageResource(R.drawable.star_rate_fill_icon)
-                star1.setImageResource(R.drawable.star_rate_fill_icon)
-            }
-            R.id.star2 -> {
-                userRating = 2
-                star2.setImageResource(R.drawable.star_rate_fill_icon)
-                star1.setImageResource(R.drawable.star_rate_fill_icon)
-            }
-            R.id.star1 -> {
-                userRating = 1
-                star1.setImageResource(R.drawable.star_rate_fill_icon)
-            }
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val imageView = view?.findViewById<ImageView>(R.id.imageViewPatrolPhoto)
+        binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.radioActive-> {
+                    isActive=true
+                }
+                R.id.radioNotActive -> {
+                    isActive=false
+                }
+            }
+        }
 
         Glide.with(this)
             .load(patrolViewModel.patrol?.photo)
             .into(imageView!!)
-        binding.star1.setOnClickListener{
-            onStarClick(it)
-        }
-        binding.star2.setOnClickListener{
-            onStarClick(it)
-        }
-        binding.star3.setOnClickListener{
-            onStarClick(it)
-        }
-        binding.star4.setOnClickListener{
-            onStarClick(it)
-        }
-        binding.star5.setOnClickListener{
-            onStarClick(it)
-        }
+
         binding.addCommentButton.setOnClickListener{
             addComment()
         }
@@ -142,9 +92,11 @@ class PatrolInfoFragment : DialogFragment() {
     }
 
     private fun displayListData(dataList: List<Review>) {
+        val sortedDataList = dataList.sortedByDescending { it.date }
         val reviewsLayout = binding.reviewsLayout
         reviewsLayout?.removeAllViews()
-        for (review in dataList) {
+
+        for (review in sortedDataList) {
             val reviewLayout = LinearLayout(requireContext())
             reviewLayout.orientation = LinearLayout.VERTICAL
             val layoutParams = LinearLayout.LayoutParams(
@@ -165,7 +117,16 @@ class PatrolInfoFragment : DialogFragment() {
 
 
             val ratingTextView = TextView(requireContext())
-            ratingTextView.text = "Ocena: ${review.rating}"
+            var stillHere=""
+            if(review.active==true){
+                stillHere="je i dalje tu"
+            }
+            else{
+                stillHere="nije vise na ovom mestu"
+            }
+            val format = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
+            val formatiraniDatum = format.format(review.date)
+            ratingTextView.text = "Patrola ${stillHere}: ${formatiraniDatum}"
             ratingTextView.textSize = 14f
             ratingCommentLayout.addView(ratingTextView)
 
@@ -204,17 +165,13 @@ class PatrolInfoFragment : DialogFragment() {
     private fun addComment()
     {
         var comment=binding.commentEditText.text.toString()
-        if(userRating!=0 && comment!= "") {
+        if(comment!= "") {
             var points:Long=0
-            var newPoints=0
-            var review=Review(userRating,comment,loggedUserViewModel.user?.username!!)
+            var newPoints=5
+            val trenutniDatum = Date()
+            val existingReview = patrolViewModel.patrol!!.copy()
+            var review=Review(isActive,comment,loggedUserViewModel.user?.username!!,trenutniDatum)
             val ownerUsername= patrolViewModel.patrol?.publisher!!
-
-            if(userRating<3) {
-                newPoints = -1
-            }
-            else if(userRating>=3)
-                newPoints = 1
 
             val databaseUser = FirebaseDatabase.getInstance().getReference("Users")
             databaseUser.child(ownerUsername).get().addOnCompleteListener { task ->
@@ -226,11 +183,6 @@ class PatrolInfoFragment : DialogFragment() {
 
             patrolViewModel.addReviewToPatrol(review)
             binding.commentEditText.text?.clear()
-            binding.star1.setImageResource(R.drawable.star_rate_icon)
-            binding.star2.setImageResource(R.drawable.star_rate_icon)
-            binding.star3.setImageResource(R.drawable.star_rate_icon)
-            binding.star4.setImageResource(R.drawable.star_rate_icon)
-            binding.star5.setImageResource(R.drawable.star_rate_icon)
             loggedUserViewModel.addPointsForComment()
             displayListData( patrolViewModel.getReviewsForPatrol())
         }

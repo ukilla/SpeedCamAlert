@@ -34,6 +34,7 @@ import com.example.speedcamalert.classes.User
 import com.example.speedcamalert.databinding.FragmentHomeBinding
 import com.example.speedcamalert.viewmodels.LoggedUserViewModel
 import com.example.speedcamalert.viewmodels.PatrolViewModel
+import com.example.speedcamalert.viewmodels.UsersViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -61,6 +62,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
     private lateinit var location: MutableLiveData<Location>
     private  val patrolViewModel: PatrolViewModel by activityViewModels()
     private val loggedUserViewModel: LoggedUserViewModel by activityViewModels()
+    private  val usersViewModel: UsersViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +105,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
                 Log.e("Firebase", "Some values are null.")
             }
         }
-        //usersViewModel.getUsers()
+        usersViewModel.getUsers()
         patrolViewModel.fetchPatrols()
 
 
@@ -194,10 +196,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
                 this.findNavController().navigate(R.id.action_homeFragment_to_patrolListFragment)
                 true
             }
-//            R.id.action_show_scoreboard->{
-//                this.findNavController().navigate(R.id.action_homeFragment_to_leaderboardFragment)
-//                true
-//            }
+            R.id.action_show_scoreboard->{
+                this.findNavController().navigate(R.id.action_homeFragment_to_leaderboardFragment)
+                true
+            }
             else->super.onContextItemSelected(item)
         }
     }

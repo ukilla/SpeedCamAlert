@@ -16,8 +16,6 @@ class MainActivity : AppCompatActivity() {
             supportActionBar?.setDisplayShowTitleEnabled(false)
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.d("greska","MAJMUNEEE")
-            Log.d("greska",e.toString())
         }
     }
 }

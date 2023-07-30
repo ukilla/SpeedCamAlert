@@ -75,7 +75,7 @@ class PatrolAdapter(private val context: Context, private val patrolListLiveData
         val longitudeTextView: TextView = view.findViewById(R.id.longitudeTextView)
     }
 
-    fun updateStrayList(newList: List<Patrol>) {
+    fun updatePatrolList(newList: List<Patrol>) {
         patrolList = newList
         Log.d("IZMENE",patrolList.size.toString())
         notifyDataSetChanged()
