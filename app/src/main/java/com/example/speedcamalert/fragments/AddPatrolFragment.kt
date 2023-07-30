@@ -77,13 +77,13 @@ class AddPatrolFragment : Fragment() {
                 true
             }
 //            R.id.action_show_scoreboard->{
-//                this.findNavController().navigate(R.id.action_addStrayFragment_to_leaderboardFragment)
+//                this.findNavController().navigate(R.id.action_addPatrolFragment_to_leaderboardFragment)
 //                true
 //            }
-//            R.id.action_list->{
-//                this.findNavController().navigate(R.id.action_addStrayFragment_to_strayListFragment)
-//                true
-//            }
+            R.id.action_list->{
+                this.findNavController().navigate(R.id.action_addPatrolFragment_to_patrolListFragment)
+                true
+            }
             else->super.onContextItemSelected(item)
         }
     }

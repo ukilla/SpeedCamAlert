@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_addPatrolFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_addPatrolFragment_to_patrolListFragment"
+            app:destination="@id/patrolListFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
