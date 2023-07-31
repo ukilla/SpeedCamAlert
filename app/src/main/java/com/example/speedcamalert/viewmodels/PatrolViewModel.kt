@@ -13,6 +13,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import java.util.Date
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -86,6 +87,27 @@ class PatrolViewModel : ViewModel(){
     fun getReviewsForPatrol(): List<Review> {
 
         return patrol?.reviews!!.values.toList()?: emptyList()
+    }
+
+    fun filterPatrols(nameFilter: String?, typeFilter: String?, dateFilter: Date?, radiusFilter:Int?, userLat:Double?, userLon: Double?) {
+        val filteredList = patrolList.filter { patrol ->
+            var includePatrol = true
+            if (nameFilter != null) {
+                includePatrol = includePatrol && patrol.name.contains(nameFilter, ignoreCase = true)
+            }
+            if (typeFilter != null) {
+                includePatrol = includePatrol && patrol.type == typeFilter
+            }
+            if (dateFilter != null) {
+                includePatrol = includePatrol && patrol.date >= dateFilter
+            }
+            if(radiusFilter!= null)
+            {
+                includePatrol=includePatrol && getDistance(userLat!!,userLon!!,patrol.latitude!!,patrol.longitude!!)<radiusFilter
+            }
+            includePatrol
+        }
+        _patrols.value = filteredList
     }
 
 

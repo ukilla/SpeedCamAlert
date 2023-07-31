@@ -171,6 +171,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
                 Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
             }
         }
+        binding.filter.setOnClickListener{
+            val dialogFragment = FilterFragment()
+            dialogFragment.show(parentFragmentManager, "FilterDialog")
+        }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
